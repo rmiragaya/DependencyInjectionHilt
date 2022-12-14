@@ -9,6 +9,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -28,9 +29,24 @@ object AppModule {
             .create(MyApi::class.java)
     }
 
+//    @Provides
+//    @Singleton
+//    fun provideMyRepository(
+//        api: MyApi,
+//        app: Application,
+//        @Named("hello1")
+//        hello1: String
+//    ): MyRepository {
+//        return MyRepositoryImpl(api, app)
+//    }
+
     @Provides
     @Singleton
-    fun provideMyRepository(api: MyApi, app: Application): MyRepository {
-        return MyRepositoryImpl(api, app)
-    }
+    @Named("hello1") // use when muiltiples provides of the same class
+    fun provideString1() = "Hello String 1"
+
+    @Provides
+    @Singleton
+    @Named("hello2") // use when muiltiples provides of the same class
+    fun provideString2() = "Hello String 2"
 }
